@@ -91,7 +91,7 @@ CREATE TABLE reviews (
     review_answer_timestamp TIMESTAMP
 );
 
--- 7️ Order Items Dimension Table
+-- 7️ Order Items Fact Table
 CREATE TABLE order_items (
     order_id TEXT NOT NULL REFERENCES orders(order_id),
     order_item_id INT NOT NULL,
