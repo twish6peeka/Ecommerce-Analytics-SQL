@@ -1,39 +1,26 @@
 -- =====================================================
 -- 01_schema.sql
--- E-Commerce Project - Database Schema
+-- Core warehouse schema (final state)
 -- =====================================================
 
--- ===============================
--- DROP TABLES 
--- ===============================
-
-DROP TABLE IF EXISTS order_items CASCADE;
-DROP TABLE IF EXISTS payments CASCADE;
-DROP TABLE IF EXISTS reviews CASCADE;
-DROP TABLE IF EXISTS orders CASCADE;
-DROP TABLE IF EXISTS products CASCADE;
-DROP TABLE IF EXISTS customers CASCADE;
-DROP TABLE IF EXISTS sellers CASCADE;
-DROP TABLE IF EXISTS geolocation_clean CASCADE;
-
--- ===============================
--- CREATE TABLES
--- ===============================
-
--- 1️ Customers Dimension Table
-CREATE TABLE customers (
+-- ======================
+-- Customers Dimension Table
+-- ======================
+CREATE TABLE IF NOT EXISTS customers (
     customer_id TEXT PRIMARY KEY,
-    full_name VARCHAR(100),
-    email VARCHAR(100),
+    full_name TEXT,
+    email TEXT,
     signup_date DATE,
     country TEXT,
     customer_zip_code_prefix TEXT
 );
 
--- 2️ Products Dimension Table
-CREATE TABLE products (
+-- ======================
+-- Products Dimension Table
+-- ======================
+CREATE TABLE IF NOT EXISTS products (
     product_id TEXT PRIMARY KEY,
-    product_name VARCHAR(100),
+    product_name TEXT,
     product_category_name TEXT,
     price NUMERIC(10,2),
     product_name_length INT,
@@ -45,21 +32,10 @@ CREATE TABLE products (
     product_width_cm NUMERIC
 );
 
--- 3️ Orders Fact Table
-CREATE TABLE orders (
-    order_id TEXT PRIMARY KEY,
-    customer_id TEXT NOT NULL REFERENCES customers(customer_id),
-    order_date DATE,
-    order_status VARCHAR(20),
-    order_purchase_timestamp TIMESTAMP,
-    order_approved_at TIMESTAMP,
-    order_delivered_carrier_date TIMESTAMP,
-    order_delivered_customer_date TIMESTAMP,
-    order_estimated_delivery_date TIMESTAMP
-);
-
--- 4️ Sellers Dimension Table
-CREATE TABLE sellers (
+-- ======================
+-- Sellers Dimension Table
+-- ======================
+CREATE TABLE IF NOT EXISTS sellers (
     seller_id TEXT PRIMARY KEY,
     seller_name TEXT,
     seller_city TEXT,
@@ -68,48 +44,78 @@ CREATE TABLE sellers (
     seller_country TEXT
 );
 
-
--- 5️ Payments Fact Table
-CREATE TABLE payments (
-    payment_id SERIAL PRIMARY KEY,
-    order_id TEXT NOT NULL REFERENCES orders(order_id),
-    payment_date DATE,
-    payment_method VARCHAR(30),
-    payment_status VARCHAR(20),
-    payment_installments INT,
-    payment_value NUMERIC
+-- ======================
+-- Orders Dimension Table
+-- ======================
+CREATE TABLE IF NOT EXISTS orders (
+    order_id TEXT PRIMARY KEY,
+    customer_id TEXT,
+    order_status TEXT,
+    order_purchase_timestamp TIMESTAMP,
+    order_approved_at TIMESTAMP,
+    order_delivered_carrier_date TIMESTAMP,
+    order_delivered_customer_date TIMESTAMP,
+    order_estimated_delivery_date TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 
--- 6️ Reviews Fact Table
-CREATE TABLE reviews (
+-- ========================
+-- Order Items Fact Table
+-- ========================
+CREATE TABLE IF NOT EXISTS order_items (
+    order_id TEXT,
+    order_item_id INT,
+    product_id TEXT,
+    seller_id TEXT,
+    shipping_limit_date TIMESTAMP,
+    price NUMERIC(10,2),
+    freight_value NUMERIC,
+    PRIMARY KEY (order_id, order_item_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id),
+    FOREIGN KEY (seller_id) REFERENCES sellers(seller_id)
+);
+
+-- ======================
+-- Payments Fact Table
+-- ======================
+CREATE TABLE IF NOT EXISTS payments (
+    order_id TEXT,
+    payment_sequential INT,
+    payment_type TEXT,
+    payment_installments INT,
+    payment_value NUMERIC,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
+);
+
+-- ======================
+-- Reviews Fact Table
+-- ======================
+CREATE TABLE IF NOT EXISTS reviews (
     review_id TEXT PRIMARY KEY,
-    order_id TEXT NOT NULL REFERENCES orders(order_id),
+    order_id TEXT,
     review_score INT,
     review_comment_title TEXT,
     review_comment_message TEXT,
     review_creation_date TIMESTAMP,
-    review_answer_timestamp TIMESTAMP
+    review_answer_timestamp TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
 );
 
--- 7️ Order Items Fact Table
-CREATE TABLE order_items (
-    order_id TEXT NOT NULL REFERENCES orders(order_id),
-    order_item_id INT NOT NULL,
-    product_id TEXT NOT NULL REFERENCES products(product_id),
-    seller_id TEXT REFERENCES sellers(seller_id),
-    shipping_limit_date TIMESTAMP,
-    price NUMERIC,
-    freight_value NUMERIC,
-    PRIMARY KEY (order_id, order_item_id)
+-- =============================================================
+-- Product Category Translation Dimension Table
+-- =============================================================
+CREATE TABLE IF NOT EXISTS product_category_translation (
+    product_category_name TEXT PRIMARY KEY,
+    product_category_name_english TEXT
 );
 
--- 8️ Geolocation Clean Dimension Table
-CREATE TABLE geolocation_clean (
-    geolocation_zip_code_prefix TEXT PRIMARY KEY,
+-- ================================================
+-- Geolocation (cleaned) Dimension Table
+-- ================================================
+CREATE TABLE IF NOT EXISTS geolocation_clean (
+    geolocation_zip_code_prefix TEXT,
     geolocation_city TEXT,
     geolocation_state TEXT
 );
 
--- ===============================
--- Schema Setup Complete
--- ===============================
