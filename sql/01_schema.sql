@@ -1,11 +1,10 @@
 -- =====================================================
 -- 01_schema.sql
 -- E-Commerce Project - Database Schema
--- This script creates all base tables for the project
 -- =====================================================
 
 -- ===============================
--- DROP TABLES (in correct order)
+-- DROP TABLES 
 -- ===============================
 
 DROP TABLE IF EXISTS order_items CASCADE;
