@@ -42,7 +42,7 @@ This repository implements a **full ELT analytics pipeline**:
 - **Ingestion & Staging**: Raw data ingested as `TEXT` to prevent pipeline failure  
 - **Defensive Engineering**: Text standardization, NULL handling, and temporal validation  
 - **Star Schema Architecture**: Fact & Dimension separation for analytical performance  
-- **Semantic Modeling**: 26+ pre-calculated KPI views (Revenue, AOV, SLA delays, retention)  
+- **Semantic Modeling**: Business logic encapsulated in modular SQL views across four tracks: Growth, Customer Behavior, Product Intelligence, and Operations/Seller Performance.  
 - **Automated Auditing**: Data quality checks for integrity and sanity  
 - **BI Consumption**: SQL-first design powering Power BI dashboards  
 
