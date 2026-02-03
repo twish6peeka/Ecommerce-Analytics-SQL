@@ -27,7 +27,7 @@ This reflects a **modern Analytics Engineering approach** where BI is a thin vis
 
 ---
 
-## Dashboard 1: Growth & Customer Intelligence
+## Dashboard 1: Business Growth & Customer Intelligence
 
 **Primary Stakeholders:**  
 CEO, Chief Revenue Officer (CRO), Executive Leadership  
@@ -65,7 +65,7 @@ This helps leadership distinguish **scalable growth** from **volume-only growth*
 
 ---
 
-## Dashboard 2: Marketplace & Product Performance
+## Dashboard 2: Marketplace & Operations Performance
 
 **Primary Stakeholders:**  
 Commercial Director, Category Managers, Operations Teams  
@@ -104,7 +104,7 @@ Used by commercial teams to guide pricing, promotions, and assortment strategy.
 
 ---
 
-## Dashboard 3: Geographic Intelligence (Maps)
+## Dashboard 3: Market Geography & Footprint (Maps)
 
 **Primary Stakeholders:**  
 Head of Logistics, Expansion Strategy Team  
