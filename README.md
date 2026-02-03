@@ -144,20 +144,20 @@ This mirrors **real production-grade data reliability checks**.
 Due to BI tool constraints, dashboards use **sampled datasets (200 rows)**.  
 However, **all SQL logic is production-scale and reusable**.
 
-### Dashboard 1 — Growth & Customer Insights  
+### Dashboard 1 — Business Growth & Customer Intelligence  
 **Audience:** Leadership  
 - Revenue, Orders, AOV, Active Customers  
 - Monthly & quarterly trends  
 - Demand-side geographic analysis  
 
-### Dashboard 2 — Marketplace Performance & Revenue Analysis  
+### Dashboard 2 — Marketplace Performance & Operations Performance  
 **Audience:** Commercial & Ops teams  
 - Category revenue concentration  
 - Seller performance by state  
 - Orders vs revenue comparison  
 - Delivery delay metrics  
 
-### Dashboard 3 — Geographic Intelligence  
+### Dashboard 3 — Market Geography & Footprint   
 **Audience:** Expansion & Logistics teams  
 - Orders by state (demand volume)  
 - Revenue by state (monetary impact)  
