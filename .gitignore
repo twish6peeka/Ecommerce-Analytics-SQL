@@ -1,0 +1,20 @@
+# --- System Junk ---
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+
+# --- BI Tool Backups & Temp Files ---
+*.pbix.temp
+*.bak
+~*
+
+# --- Data Privacy ---
+# Ignore large raw zip files or internal raw data
+*.zip
+*.rar
+# data/raw_unprocessed_data.csv
+
+# --- IDE Settings ---
+.vscode/
+.idea/
