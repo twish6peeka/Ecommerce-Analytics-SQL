@@ -205,12 +205,12 @@ ecommerce_project/
 ├── sql/                          # Modular SQL Transformation Pipeline (01-08)
 ├── data/                         # Performance-optimized sample CSVs for replication
 ├── kpis/                         # Exported CSV result sets from SQL Views
-├── docs/                  
-│   ├── project_overview.md       # Technical Case Study & Deep Dive
+├── dashboards/                  
+│   ├── dashboards_overview.md       # Technical Case Study & Deep Dive
 │   └── dashboard_screenshots/
-│       ├── growth_insights.png
-│       ├── marketplace_performance.png
-│       └── geographic_intelligence.png
+│       ├── Growth&Customer_Insights.png
+│       ├── Marketplace&Category_Analysis.png
+│       └── Geographic_Intelligence.png
 ├── .gitignore                    # Git hygiene (prevents system clutter)
 └── README.md                     # Executive Summary & Architecture
 
