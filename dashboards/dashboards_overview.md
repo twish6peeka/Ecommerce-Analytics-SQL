@@ -27,6 +27,21 @@ This reflects a **modern Analytics Engineering approach** where BI is a thin vis
 
 ---
 
+## Requirements & Acceptance Criteria (Applied to Dashboards)
+
+### Business Requirement
+Enable leadership and operations teams to monitor growth, operational risk, and market gaps from a unified system.
+
+### Acceptance Criteria Example
+**Delivery Performance Audit**
+- **Given** an order is delivered  
+- **When** actual delivery exceeds estimated delivery  
+- **Then** the dashboard reflects an SLA breach and supports correlation with review scores
+
+This logic is implemented in `vw_delivery_delay`.
+
+---
+
 ## Dashboard 1: Business Growth & Customer Intelligence
 
 **Primary Stakeholders:**  
@@ -140,6 +155,16 @@ Regions with higher delivery delays directly correlate with a **22% drop in aver
 
 ---
 
+## Traceability: SQL → Dashboard
+
+| Dashboard Visual | SQL View | Business Rule |
+|-----------------|----------|---------------|
+| Monthly Revenue | `vw_monthly_revenue` | Delivered orders only |
+| Loyalty Split | `vw_orders_per_customer` | Window functions |
+| SLA Map | `vw_delivery_delay` | Actual vs estimated |
+
+---
+
 ## Strategic Reflection: “Thin” Dashboard Architecture
 
 A core technical highlight of this project is its **decoupled analytics architecture**.
@@ -162,4 +187,8 @@ A core technical highlight of this project is its **decoupled analytics architec
 
 These dashboards demonstrate how **well-modeled SQL**, combined with **intentional BI design**, enables faster decisions, clearer insights, and scalable analytics systems.
 
-They are not just visualizations — they are **decision systems**.
+These dashboards are not just visuals, they are **decision systems** built on:
+- Clear requirements
+- Explicit business rules
+- Auditable SQL logic
+- Stakeholder-aligned design
