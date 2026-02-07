@@ -227,7 +227,7 @@ Detailed dashboard logic and stakeholder mapping is documented in:
 
 ## Final Note
 
-This project reflects **analytics engineering maturity**, not just SQL proficiency—  
+This project reflects **analytics engineering maturity**, not just SQL proficiency,  
 from raw ingestion to executive-level decision intelligence.
 
 ---
