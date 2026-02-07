@@ -42,7 +42,11 @@ This repository implements a **full ELT analytics pipeline**:
 - **Ingestion & Staging**: Raw data ingested as `TEXT` to prevent pipeline failure  
 - **Defensive Engineering**: Text standardization, NULL handling, and temporal validation  
 - **Star Schema Architecture**: Fact & Dimension separation for analytical performance  
-- **Semantic Modeling**: Business logic encapsulated in modular SQL views across four tracks: Growth, Customer Behavior, Product Intelligence, and Operations/Seller Performance.  
+- **Semantic Modeling**:  Business logic encapsulated in modular SQL views across:
+  - Growth
+  - Customer Behavior
+  - Marketplace & Product Intelligence
+  - Operations & Seller Performance  
 - **Automated Auditing**: Data quality checks for integrity and sanity  
 - **BI Consumption**: SQL-first design powering Power BI dashboards  
 
@@ -68,6 +72,29 @@ The analysis is framed around **four strategic business pillars**, mirroring rea
    - Where are customers vs sellers located?
    - Are delivery delays impacting customer experience?
 
+Before writing SQL, the problem was framed using **explicit requirements**.
+
+### Business Requirement
+Centralize e-commerce performance metrics to **reduce executive decision time and eliminate metric inconsistencies** across teams.
+
+### Functional Requirements
+- Revenue and AOV must be calculated **only from delivered orders**
+- Growth metrics must align to **item-level revenue grain**
+- Delivery performance must compare **estimated vs actual delivery dates**
+
+### Non-Functional Requirements
+- All business logic must live in SQL views (`07_kpi_views.sql`)
+- BI dashboards must not redefine or override metrics
+- Logic must be portable across BI tools
+
+### Acceptance Criteria (Given–When–Then)
+**Scenario: Delivery SLA Monitoring**
+
+- **Given** an order is marked as `delivered`  
+- **When** the actual delivery date exceeds the estimated delivery date  
+- **Then** the system flags it as an SLA breach and exposes it for correlation with review scores
+
+These criteria directly drive both KPI definitions and data quality checks.
 ---
 
 ## Schema Architecture & Data Grain
@@ -162,7 +189,10 @@ However, **all SQL logic is production-scale and reusable**.
 - Orders by state (demand volume)  
 - Revenue by state (monetary impact)  
 - Customer revenue concentration  
-- Seller distribution (supply-side)  
+- Seller distribution (supply-side)
+
+Detailed dashboard logic and stakeholder mapping is documented in:  
+`dashboards/dashboards_overview.md`
 
 ---
 
@@ -186,6 +216,9 @@ However, **all SQL logic is production-scale and reusable**.
 
 - **Views vs Materialization**  
   Views offer flexibility; in production, these would be migrated to materialized views or dbt models.
+
+- **Logic Placement**  
+  SQL-first logic prioritized portability and consistency over BI-native optimizations
 
 - **Dataset Constraints**  
   Lack of marketing spend (CAC) and refunds limits Net Profit and LTV analysis.
